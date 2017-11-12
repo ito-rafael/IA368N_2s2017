@@ -1,0 +1,11 @@
+function dt=simulation_getDt(connection)
+    global isoctave;
+    if (isoctave)
+        dt=simxGetFloatingParameter(connection.clientID,vrep.sim_floatparam_simulation_time_step,vrep.simx_opmode_oneshot_wait);
+    else
+        dt=connection.vrep.simxGetFloatingParameter(connection.clientID,vrep.sim_floatparam_simulation_time_step,vrep.simx_opmode_oneshot_wait);
+
+            connection.vrep.simxStartSimulation(connection.clientID,connection.vrep.simx_opmode_oneshot_wait);
+
+    end
+end
