@@ -1,0 +1,44 @@
+Como adicionar caminhos ao javaclasspath do Matlab2012b/Octave 3.8.1 e mais novos
+
+	1 - No matlab digite o seguinte comando:
+		prefdir
+
+	2 - Dentro desta pasta você deve criar um arquivo javaclasspath.txt com codificação ASCII
+
+	3 - Dentro do arquivo você deve colocar o caminho para a pasta que contem os codigos da API:
+		 Por exemplo
+
+		/Users/joao/Dropbox/Disciplina/API_MATLAB
+
+	4 - Salve o arquivo.
+
+	5 - Feche e abra novamente o matlab.
+
+	6 - Para conferir se o caminho foi adicionado digite na command window:
+		javaclasspath
+	
+	7 - Mais informações procure no help sobre javaclasspath ou static java path
+
+Como adicionar caminhos ao javaclasspath do Matlab2012a/Octave e mais antigos*
+
+	1 - Acesse o diretorio raiz do matlab (diretorio onde foi instalado)
+		No linux: /usr/local/MATLAB/SUA_VERSAO_DO_MATLAB
+
+	2 - Acesse o diretorio "toolbox/local"
+
+	3 - Abra o arquivo classpath (necessario permissao para editar)
+
+	4 - Adicione na ultima linha o caminho para a pasta que contem os codigos da API:
+		 Por exemplo
+
+		/Users/joao/Dropbox/Disciplina/API_MATLAB
+	
+	5 - Salve o arquivo
+
+	6 - Feche e abra novamente o matlab
+
+	7 - Para conferir se o caminho foi adicionado digite na command window:
+		javaclasspath
+	
+	8 - Mais informações procure no help sobre javaclasspath ou static java path
+		
