@@ -76,7 +76,7 @@ Pioneer_p3dx_setPose(connection, 0,0,0);
 % define target position
 %Pioneer_p3dx_setTargetGhostPose(connection, 0, -1, deg2rad(90));
 %1%Pioneer_p3dx_setTargetGhostPose(connection, -1, 0, 0);
-Pioneer_p3dx_setTargetGhostPose(connection, 1.6, 0.6, deg2rad(90));
+%Pioneer_p3dx_setTargetGhostPose(connection, 1.6, 0.6, deg2rad(90));
 
 
 % controller parameters

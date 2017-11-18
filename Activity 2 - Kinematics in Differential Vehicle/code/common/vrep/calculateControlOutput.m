@@ -26,13 +26,9 @@ alpha = normalizeAngle(alpha);
 % parameters.Kbeta,
 % parameters.Krho: controller tuning parameters
 
-beta = lambda - thetag;
-vu = (parameters.Kalpha * rho); % [m/s]
-omega = (parameters.Kalpha * alpha) + (parameters.Kbeta * beta); % [rad/s]
-
-%vu = 0.100;
-%vu = parameters.Krho* rho*cos(alpha); % [m/s]
-%omega = parameters.Kalpha*alpha + parameters.Kbeta * (normalizeAngle(normalizeAngle(-lambda)+thetag));% [rad/s]
+vu = parameters.Krho * rho; % [m/s]
+beta = normalizeAngle(-lambda + thetag);
+omega = parameters.Kalpha*alpha + parameters.Kbeta * beta;% [rad/s]
 
 %==============================================================================
 
@@ -45,53 +41,3 @@ omega = (parameters.Kalpha * alpha) + (parameters.Kbeta * beta); % [rad/s]
 %==============================================================================
 
 end
-
-
-
-
-
-
-
-
-%{
-if ahead == 1
-vu = 0.100;%parameters.Krho* rho*cos(alpha); % [m/s]
-omega = parameters.Kalpha*alpha + parameters.Kbeta * (normalizeAngle(normalizeAngle(-lambda)+thetag));% [rad/s]
-else
-vu = -0.100;%parameters.Krho* rho*cos(normalizeAngle(alpha+pi)); % [m/s]
-omega = parameters.Kalpha*normalizeAngle(alpha+pi) + parameters.Kbeta * (normalizeAngle(normalizeAngle(-lambda+pi)+thetag));% [rad/s]
-end
-
-
-%==============================================================================
-
-%if count_aux == 1000
-%  count_aux = 0;
-%endif
-%if count_aux == 0
-if alpha >= -pi/2 && alpha < pi/2
-  if normalizeAngle(thetag-theta) < pi/2 %&& normalizeAngle(thetag-theta) >= -pi/2
-    ahead = 1;
-  else
-    ahead = 0;
-  end
-else
-  if normalizeAngle(thetag-theta) < pi/2 %&& normalizeAngle(thetag-theta) >= -pi/2
-    ahead = 0;
-  else
-    ahead = 1;
-  end
-end
-%count_aux += 1;
-%endif
-%count_aux += 1;
-
-%ahead = 0;
-if ahead == 1
-vu = 0.100;%parameters.Krho* rho*cos(alpha); % [m/s]
-omega = parameters.Kalpha*alpha + parameters.Kbeta * (normalizeAngle(normalizeAngle(-lambda)+thetag));% [rad/s]
-else
-vu = -0.100;%parameters.Krho* rho*cos(normalizeAngle(alpha+pi)); % [m/s]
-omega = parameters.Kalpha*normalizeAngle(alpha+pi) + parameters.Kbeta * (normalizeAngle(normalizeAngle(-lambda+pi)+thetag));% [rad/s]
-end
-%}
