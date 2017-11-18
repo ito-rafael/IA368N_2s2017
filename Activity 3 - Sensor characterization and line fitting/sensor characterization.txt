@@ -1,0 +1,11 @@
+Max. range:					20 m (at 10 % reflectivity)
+Scanning angle:				Max. 270°
+Angular resolution:			0.5°
+Scanning frequency:			50 Hz
+Response time:				20 ms
+Statistical error (1 s):	Typical 12 mm
+Systematic error:			Typical ± 30 mm (temperature drift max. 0.32 mm / °C)
+Supply voltage:				10.8 V to 30 V DC
+Weight:						Approx. 1.1 kg (without cables)
+Dimensions:					102 mm x 152 mm x 105 mm
+Power consumption: 			typically 8.4 W to 12 W
