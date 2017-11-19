@@ -5,3 +5,5 @@ Activity 1 - Robotic Leg
 Activity 2 - Kinematics in Differential Vehicle
 
 Activity 3 - Sensor characterization and line fitting
+
+Activity 4 - Extended Kalman Filter

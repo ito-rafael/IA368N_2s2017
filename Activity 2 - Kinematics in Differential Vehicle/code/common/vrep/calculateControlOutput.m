@@ -20,24 +20,34 @@ alpha = normalizeAngle(alpha);
 % the following paramerters should be used:
 
 %==============================================================================
-
 % Task 3:
+%==============================================================================
 % parameters.Kalpha,
 % parameters.Kbeta,
 % parameters.Krho: controller tuning parameters
 
 vu = parameters.Krho * rho; % [m/s]
 beta = normalizeAngle(-lambda + thetag);
-omega = parameters.Kalpha*alpha + parameters.Kbeta * beta;% [rad/s]
-
+omega = parameters.Kalpha*alpha + parameters.Kbeta * beta; % [rad/s]
 %==============================================================================
-
 % Task 4:
+%==============================================================================
 % parameters.backwardAllowed: This boolean variable should switch the between the two controllers
 % parameters.useConstantSpeed: Turn on constant speed option
 % parameters.constantSpeed: The speed used when constant speed option is on
 
+% parameters.useConstantSpeed is defined in "controller.m" and set as 0.1
+if (parameters.useConstantSpeed == true)
+    % robot moving FORWARD
+    if ((alpha >= -pi/2) && (alpha < pi/2))
+        vu = parameters.constantSpeed; % [m/s]
+    % robot moving BACKWARD
+    else
+        % ((alpha >= pi/2) && (alpha < -pi/2))
+        vu = -parameters.constantSpeed; % [m/s]
 
+    end
+end
 %==============================================================================
 
 end
