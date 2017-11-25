@@ -91,9 +91,8 @@ parameters.angle_threshold = deg2rad(10);%0.4; % threshold orientation to goal
 R = parameters.wheelRadius;
 
 %==============================================================================
-
 %% teleoperation program goes here
-
+%==============================================================================
 % set robot's speed to zero
 vu = 0;
 omega = 0;
@@ -182,7 +181,6 @@ while(!finish)
         otherwise
     end
 end
-
 %==============================================================================
 
 %% Bring Pioneer_p3dx to standstill

@@ -6,9 +6,11 @@
 %   - Hit the run button in V-REP
 %   - Start this script
 
+pkg load image
+
 %% Parameters setup
 %% define that we will use the real P3DX and/or the simulated one
-global realRobot ; 
+global realRobot ;
 realRobot=0;
 
 %global ghostPose;
@@ -24,10 +26,10 @@ global optionStr;
 optionStr= '?range=-100:100:20'; %  example optionStr= '?range=-90:90:3'
 
 global poseStr;
-poseStr = '/motion/pose';   
+poseStr = '/motion/pose';
 
 global vel2Str;
-vel2Str = '/motion/vel2';   
+vel2Str = '/motion/vel2';
 
 global stopStr;
 stopStr = '/motion/stop';
@@ -72,28 +74,32 @@ v = [0;0];
 Pioneer_p3dx_setWheelSpeeds(connection, 0.9, 1.0);
 
 for i = 1:400
-    
+
     for l = 1:round(laserRate/simStep)
         simulation_triggerStep(connection);
     end
-    
+
     [v(1), v(2)] = Pioneer_p3dx_getWheelSpeeds(connection);
     dt = 50e-3*round(laserRate/simStep);
     u = (v + abs(v).* (k * randn(size(u)))) * dt * d/2;
-    
     % extract lines
+
+    %========================================================
+    % this function is printing "dataType = local_poses"
     [laserX, laserY] = Pioneer_p3dx_getLaserData(connection);
+    %========================================================
+
     theta = atan2(laserY, laserX);
     rho = laserX./cos(theta);
     inRangeIdx = find(rho < 4.9);
     theta  = theta(inRangeIdx);
     rho  = rho(inRangeIdx);
-    
+
     [x, P] = incrementalLocalization(x, P, u, [theta; rho], M, params, k, g, l);
-    
+
     % plot pose estimate in vrep
     Pioneer_p3dx_setGhostPose(connection, x(1), x(2), x(3));
-    
+
 end
 simulation_stop(connection);
 simulation_closeConnection(connection);

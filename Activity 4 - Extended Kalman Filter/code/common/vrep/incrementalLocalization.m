@@ -7,15 +7,38 @@ function [x_posterori, P_posterori] = incrementalLocalization(x, P, u, S, M, par
 C_TR = diag([repmat(0.1^2, 1, size(S, 2)) repmat(0.1^2, 1, size(S, 2))]);
 [z, R, ans] = extractLinesPolar(S(1,:), S(2,:), C_TR, params);
 
-
 %STARTRM
 figure(2), cla, hold on;
-
+%==============================================================================
 %compute z_prior
-z_prior =#; %hint: several steps to get z_prior
-#
-#
-#
+%hint: several steps to get z_prior
+% S = [];
+% S = [S; th_1 th_2 ... th_n];
+% S = [S; d_1  d_2  ... d_n];
+% th_n is the nth laser scan angle
+%  d_n is the nth laser scan distance
+
+%%{
+z_prior = [];
+% N = number of laser measurements
+N = length(S(1,:));
+% compute a z for each entry
+for i=1:N
+    [h, H] = measurementFunction(x, M(:,i));
+    z_prior = [z_prior; h(1)];
+    z_prior = [z_prior; h(2)];
+end
+%}
+
+%{
+z_prior=[]; %hint: several steps to get z_prior
+nMapEntries = size(M,2);
+for j = 1 : nMapEntries
+    [z_j, H] = measurementFunction(x, M(:,j));
+    z_prior=[z_prior; z_j(1) z_j(2)];
+end
+z_prior=z_prior'
+%}
 
 plot(z(1,:), z(2,:),'bo');
 plot(z_prior(1,:), z_prior(2,:),'rx');
@@ -24,6 +47,8 @@ legend('measurement','prior')
 drawnow
 
 % estimate robot pose
-[x_posterori, P_posterori] = #; %hint: you just coded this function
-
+% hint: you just coded this function
+[x_posterori, P_posterori] = filterStep(x, P, u, Z, R, M, k, g, l);
+%==============================================================================
 %ENDRM
+end

@@ -24,14 +24,14 @@ while 1
         [n, d] = getLine(p(:,indices(1:2)));
         t = n'*p - d;
         indices = find(abs(t) < threshold);
-        
+
         if length(indices) > length(indicesMax)
             indicesMax = indices;
             nMax = n;
             dMax = d;
         end
     end
-    
+
     if length(indicesMax) > minSupport
         angle = atan2(nMax(2), nMax(1));
         if angle > pi
@@ -39,12 +39,12 @@ while 1
         elseif angle < -pi
             angle = angle + 2 * pi;
         end
-        
+
         M = [M, [angle; dMax]];
     else
         break;
     end
-    
+
     p(:, indicesMax) = [];
 end
 
