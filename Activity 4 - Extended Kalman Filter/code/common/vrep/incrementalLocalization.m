@@ -18,37 +18,24 @@ figure(2), cla, hold on;
 % th_n is the nth laser scan angle
 %  d_n is the nth laser scan distance
 
-%%{
 z_prior = [];
-% N = number of laser measurements
-N = length(S(1,:));
+N = length(M(1,:));
 % compute a z for each entry
 for i=1:N
     [h, H] = measurementFunction(x, M(:,i));
-    z_prior = [z_prior; h(1)];
-    z_prior = [z_prior; h(2)];
+    z_prior(1,i) = h(1);
+    z_prior(2,i) = h(2);
 end
-%}
-
-%{
-z_prior=[]; %hint: several steps to get z_prior
-nMapEntries = size(M,2);
-for j = 1 : nMapEntries
-    [z_j, H] = measurementFunction(x, M(:,j));
-    z_prior=[z_prior; z_j(1) z_j(2)];
-end
-z_prior=z_prior'
-%}
 
 plot(z(1,:), z(2,:),'bo');
 plot(z_prior(1,:), z_prior(2,:),'rx');
 xlabel('angle [rad]'); ylabel('distance [m]')
 legend('measurement','prior')
 drawnow
-
 % estimate robot pose
 % hint: you just coded this function
-[x_posterori, P_posterori] = filterStep(x, P, u, Z, R, M, k, g, l);
+[x_posterori, P_posterori] = filterStep(x, P, u, z, R, M, k, g, l);
+%[x_posterori, P_posterori] = filterStep(x, P, u, z_prior, R, M, k, g, l);
 %==============================================================================
 %ENDRM
 end

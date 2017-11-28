@@ -6,9 +6,11 @@ Rt = [ 1   0   -2.5
        0   0   1];
 
 threshold = 0.01;
-minSupport = 20;
+%minSupport = 20;
+minSupport = 10;
 
-mapImage = edge(mapImage,'sobel');
+mapImage = edge(mapImage,'canny');
+%mapImage = edge(mapImage,'sobel');
 %imshow(mapImage)
 [y, x] = find(mapImage ~= 0);
 p = Rt * [scaling * [x'; y']; ones(size(x'))] ;

@@ -10,16 +10,16 @@ function [laserDataX laserDataY] = Pioneer_p3dx_getLaserData(connection, dataTyp
     global laserStr;
     global laserIndex;
     global optionStr;
-    
-    
-    if nargin < 2 
-        dataType = 'local_poses'
+
+
+    if nargin < 2
+        dataType = 'local_poses';
     end
-    
-    
-    
+
+
+
 %     function distances=laserToDistance(laserData) %compute here the distance from the laserData OR get the distance in a stream from the laser script
-%         
+%
 %         laserDataX=laserData(1:2:end-1);
 %         laserDataY=laserData(2:2:end);
 %     end
@@ -48,7 +48,7 @@ function [laserDataX laserDataY] = Pioneer_p3dx_getLaserData(connection, dataTyp
             laserDataY=y ./1000;
         end
     end
-        
+
 
 
     if ~isoctave
@@ -89,8 +89,8 @@ function [laserDataX laserDataY] = Pioneer_p3dx_getLaserData(connection, dataTyp
                 %'distances'
                 laserData = http_get([connection laserStr laserIndex '/distances' optionStr]);
             else
-                %'error!'   
-            end  
+                %'error!'
+            end
             realFormat();
         end
     else
@@ -106,8 +106,8 @@ function [laserDataX laserDataY] = Pioneer_p3dx_getLaserData(connection, dataTyp
             elseif strcmp(dataType,'distances')
                 'distances'
             else
-                'error!'   
-            end        
+                'error!'
+            end
             simFormat()
         else
             %get from restthru

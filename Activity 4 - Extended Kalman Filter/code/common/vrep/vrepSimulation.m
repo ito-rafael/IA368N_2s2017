@@ -6,6 +6,7 @@
 %   - Hit the run button in V-REP
 %   - Start this script
 
+max_recursion_depth(2000);
 pkg load image
 
 %% Parameters setup
@@ -72,6 +73,7 @@ v = [0;0];
 
 
 Pioneer_p3dx_setWheelSpeeds(connection, 0.9, 1.0);
+%Pioneer_p3dx_setWheelSpeeds(connection, 0.1, 1.0);
 
 for i = 1:400
 
@@ -83,19 +85,14 @@ for i = 1:400
     dt = 50e-3*round(laserRate/simStep);
     u = (v + abs(v).* (k * randn(size(u)))) * dt * d/2;
     % extract lines
-
-    %========================================================
-    % this function is printing "dataType = local_poses"
     [laserX, laserY] = Pioneer_p3dx_getLaserData(connection);
-    %========================================================
-
     theta = atan2(laserY, laserX);
     rho = laserX./cos(theta);
     inRangeIdx = find(rho < 4.9);
     theta  = theta(inRangeIdx);
     rho  = rho(inRangeIdx);
 
-    [x, P] = incrementalLocalization(x, P, u, [theta; rho], M, params, k, g, l);
+    [x, P] = incrementalLocalization(x, P, u, [theta'; rho'], M, params, k, g, l);
 
     % plot pose estimate in vrep
     Pioneer_p3dx_setGhostPose(connection, x(1), x(2), x(3));
